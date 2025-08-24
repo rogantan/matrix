@@ -12,7 +12,7 @@ int s21_create_matrix(int rows, int columns, matrix_t* result) {
         }
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                result->matrix[i][j] = 1;
+                result->matrix[i][j] = 0;
             }
         }
     }
@@ -55,5 +55,53 @@ int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
     }
     int res = 0;
     res = s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < A->columns; j++) {
+            result->matrix[i][j] = A->matrix[i][j] + B->matrix[i][j];
+            if (!isfinite(result->matrix[i][j])) {
+                res = 2;
+            }
+        }
+    }
+    return res;
+}
 
+int s21_sub_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+    if (!(s21_is_correct_matrix(*A) && s21_is_correct_matrix(*B) && result != NULL)) {
+        return 1;
+    }
+    else if (!s21_is_eq_size(*A, *B)) {
+        return 2;
+    }
+    int res = 0;
+    res = s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < A->columns; j++) {
+            result->matrix[i][j] = A->matrix[i][j] - B->matrix[i][j];
+            if (!isfinite(result->matrix[i][j])) {
+                res = 2;
+            }
+        }
+    }
+    return res;
+}
+
+int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
+    if (!(s21_is_correct_matrix(*A) && result != NULL)) {
+        return 1;
+    } 
+    else if (!isfinite(number)) {
+        return 2;
+    }
+    int res = 0;
+    res = s21_create_matrix(A->rows, A->columns, result);
+    for (int i = 0; i < A->rows; i++) {
+        for (int j = 0; j < A->columns; j++) {
+            result->matrix[i][j] = A->matrix[i][j] * number;
+            if (!isfinite(result->matrix[i][j])) {
+                res = 2;
+            }
+        }
+    }
+    return res;
 }
