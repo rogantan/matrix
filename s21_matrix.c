@@ -27,17 +27,19 @@ void s21_remove_matrix(matrix_t* A) {
 }
 
 int s21_is_correct_matrix(matrix_t A) {
-    int res = 0;
+    int res = 1;
     if (!A.matrix || A.columns < 1 || A.rows < 1) {
-        res = 1;
+        res = 0;
     }
+    printf("h");
     return res;
 }
 
 int s21_is_eq_size(matrix_t A, matrix_t B) {
-    int res = 0;
+    int res = 1;
+    printf("eee");
     if (!(A.rows == B.rows && A.columns == B.columns)) {
-        res = 1;
+        res = 0;
     }
     return res;
 }
@@ -51,8 +53,10 @@ int s21_sum_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
         return 1;
     }
     else if (!s21_is_eq_size(*A, *B)) {
+        printf("rfh");
         return 2;
     }
+    
     int res = 0;
     res = s21_create_matrix(A->rows, A->columns, result);
     for (int i = 0; i < A->rows; i++) {

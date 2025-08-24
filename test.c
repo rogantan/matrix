@@ -2,19 +2,46 @@
 #include "s21_matrix.h"
 
 int main() {
-    matrix_t matrix;
-    s21_create_matrix(2, 2, &matrix);
-    for (int i = 0; i < matrix.rows; i++) {
-        for (int j = 0; j < matrix.columns; j++) {
-            matrix.matrix[i][j] += 1;
+    matrix_t matrix1, matrix2, matrix3;
+    s21_create_matrix(2, 2, &matrix1);
+    s21_create_matrix(2, 2, &matrix2);
+    s21_create_matrix(1, 1, &matrix3);
+    for (int i = 0; i < matrix1.rows; i++) {
+        for (int j = 0; j < matrix1.columns; j++) {
+            matrix1.matrix[i][j] = i + j;
         }
     }
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 2; j++) {
-            printf("%lf\t", matrix.matrix[i][j]);
+    printf("rrf");
+    for (int i = 0; i < matrix2.rows; i++) {
+        for (int j = 0; j < matrix2.columns; j++) {
+            matrix2.matrix[i][j] = 3;
         }
-        printf("\n");
     }
-    s21_remove_matrix(&matrix);
+    for (int i = 0; i < matrix1.rows; i++) {
+            for (int j = 0; j < matrix1.columns; j++) {
+                printf("%lf\t", matrix1.matrix[i][j]);
+            }
+            printf("\n");
+        }
+        for (int i = 0; i < matrix2.rows; i++) {
+            for (int j = 0; j < matrix2.columns; j++) {
+                printf("%lf\t", matrix2.matrix[i][j]);
+            }
+            printf("\n");
+        }
+    if (s21_sub_matrix(&matrix1, &matrix2, &matrix3)) {
+        printf("Error");
+    }
+    else {
+        for (int i = 0; i < matrix3.rows; i++) {
+            for (int j = 0; j < matrix3.columns; j++) {
+                printf("%lf\t", matrix3.matrix[i][j]);
+            }
+            printf("\n");
+        }
+    }
+    s21_remove_matrix(&matrix1);
+    s21_remove_matrix(&matrix2);
+    s21_remove_matrix(&matrix3);
     return 0;
 }
