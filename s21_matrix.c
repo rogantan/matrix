@@ -31,7 +31,6 @@ int s21_is_correct_matrix(matrix_t A) {
     if (!A.matrix || A.columns < 1 || A.rows < 1) {
         res = 0;
     }
-    printf("h");
     return res;
 }
 
@@ -108,4 +107,41 @@ int s21_mult_number(matrix_t *A, double number, matrix_t *result) {
         }
     }
     return res;
+}
+
+int s21_mult_matrix(matrix_t *A, matrix_t *B, matrix_t *result) {
+    if (!(s21_is_correct_matrix(*A) && s21_is_correct_matrix(*B) && result != NULL)) {
+        return 1;
+    }
+    else if (!(A->columns == B->rows)) {
+        return 2;
+    }
+    int res = 0;
+    //res = s21_create_matrix();
+}
+
+int s21_transpose(matrix_t *A, matrix_t *result) {
+    if (!(s21_is_correct_matrix(*A) && result != NULL)) {
+        return 1;
+    }
+    int res = 0;
+    res = s21_create_matrix(A->columns, A->rows, result);
+    for (int j = 0; j < A->columns; j++) {
+        for (int i = 0; i < A->rows; i++) {
+            result->matrix[i][j] = A->matrix[j][i];
+        }
+    }
+    return res;
+}
+
+int s21_calc_complements(matrix_t *A, matrix_t *result) {
+
+}
+
+int s21_determinant(matrix_t *A, double *result) {
+
+}
+
+int s21_inverse_matrix(matrix_t *A, matrix_t *result) {
+
 }
